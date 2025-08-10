@@ -30,3 +30,82 @@ class Solution {
     }
 }
 -------------------------------------------------------------------------------------------------------------------------------
+
+//* Better Approach -- add three numbers and subtract them with target and then check if the resultant value is present in the array *//
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        
+        int n= nums.length;
+        HashSet<List<Integer>> ans = new HashSet<>();
+
+        for(int i=0; i<n; i++) {
+            for(int j=i+1; j<n; j++) {
+                HashSet<Integer> st = new HashSet<>();
+                for(int k=j+1; k<n; k++) {
+                    int forth = target - (nums[i] + nums[j] + nums[k]);
+                    if(st.contains(forth)) {
+                        List<Integer> ele = new ArrayList<>();
+                        ele.add(nums[i]);
+                        ele.add(nums[j]);
+                        ele.add(nums[k]);
+                        ele.add(forth);
+
+                        Collections.sort(ele);
+                        ans.add(ele);
+
+                    }
+                    st.add(nums[k]);
+                }
+            }
+        }
+        List<List<Integer>> ansList = new ArrayList<>(ans);
+        return ansList;
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------
+//* Optimal Approach *//
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        
+        int n= nums.length;
+        HashSet<List<Integer>> st = new HashSet<>();
+        Arrays.sort(nums);
+        
+        for(int i=0; i<n; i++) {
+            if(i>0 && nums[i] == nums[i-1]) continue;
+            for(int j=i+1; j<n; j++) {
+                if(j>i+1 && nums[j] == nums[j-1]) continue;
+
+                int k = j+1;
+                int l = n-1;
+                while(k<l) {
+                    long sum = (long) nums[i] + nums[j] + nums[k] + nums[l];
+
+                    if(sum < target) {
+                        k++;
+                    } else if (sum > target) {
+                        l--;
+                    } else {
+                        List<Integer> ele = new ArrayList<>();
+                        ele.add(nums[i]);
+                        ele.add(nums[j]);
+                        ele.add(nums[k]);
+                        ele.add(nums[l]);
+
+                        st.add(ele);
+
+                        k++;
+                        l--;
+                        while(k<l && nums[k] == nums[k-1]) k++;
+                        while(k<l && nums[l] == nums[l+1]) l--;
+                    }
+                }
+            }
+        }
+
+        List<List<Integer>> ansList = new ArrayList<>(st);
+        return ansList;
+    }
+}
