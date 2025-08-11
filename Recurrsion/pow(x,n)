@@ -24,3 +24,32 @@ class Solution {
         return ans;
     }
 }
+============================================================================
+//* Using recurrsion *//
+class Solution {
+
+    public double pow(double a, long b) {
+        if(b == 0) return 1;
+
+        double half = pow(a, b/2);
+        double result = half * half;
+
+        if(b%2==1) result = result*a;
+
+        return result;
+
+    }
+    public double myPow(double x, int n) {
+        long m = n;
+        if(m<0) m = -m;
+
+        double ans = pow(x, m);
+        System.out.println(m);
+
+        if(n<0) {
+            return 1.0/ans;
+        } else {
+            return ans;
+        }
+    }
+}
