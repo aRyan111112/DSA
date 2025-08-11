@@ -1,0 +1,111 @@
+//* Using Iteration *//
+
+class Solution {
+    public int myAtoi(String s) {
+
+        s = s.trim();
+        Boolean neg = false;
+        long ans = 0;
+
+        for(int i=0; i<s.length(); i++) {
+            char ch = s.charAt(i);
+
+            // Check if number is negative
+            if(i==0) {
+                if(ch == '-') {
+                    neg = true;
+                    continue;
+                } else if(ch == '+') {
+                    neg = false;
+                    continue;
+                }
+            }
+
+            // if character is digit then add it to answer, but check if it is within the integer range
+            if(ch >= '0' && ch <= '9') {
+                int digit = ch - '0';
+                ans = ans*10 + digit;
+
+                if(neg) {
+                    long check = -ans;
+                    if(check < Integer.MIN_VALUE) {
+                        return Integer.MIN_VALUE;
+                    }
+                } else {
+                    if(ans > Integer.MAX_VALUE) {
+                        return Integer.MAX_VALUE;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+
+        // in case of negative
+        if(neg) ans = -ans;
+        
+        return (int)ans;
+        
+    }
+}
+
+========================================================================================================
+//* Using Recurrsion *//
+
+class Solution {
+
+
+    public long atoi(String s, int st, int end, long ans, Boolean neg) {
+        if(st > end) return ans;
+        char ch = s.charAt(st);
+        // if(!(ch >= '0' && ch <= '9')) {
+        //     return ans;
+        // }
+
+        if(st == 0) {
+            if(ch == '-' || ch == '+') {
+                return atoi(s, st+1, end, ans, neg);
+            }
+        }
+
+        if(ch >= '0' && ch <= '9') {
+            long digit = ch - '0';
+            ans = ans*10 + digit;
+
+            if(neg) {
+                Long check = -ans;
+                if(check < Integer.MIN_VALUE) {
+                    return Integer.MIN_VALUE;
+                }
+            } else {
+                if(ans > Integer.MAX_VALUE) {
+                    return Integer.MAX_VALUE;
+                }
+            }
+            return atoi(s, st+1, end, ans, neg);
+        } else {
+            return ans;
+        }
+    }
+    public int myAtoi(String s) {
+        s = s.trim();
+        if(s.length() == 0) return 0;
+
+        Boolean neg = false;
+        long ans = 0;
+        if(s.charAt(0) == '-') {
+            neg = true;
+        } else if(s.charAt(0) == '+') {
+            neg = false;
+        }
+
+        ans = atoi(s, 0, s.length()-1, ans, neg);
+
+        if(neg) {
+            ans = -ans;
+            return (int)ans;
+        } else {
+            return (int)ans;
+        }
+    }
+}
