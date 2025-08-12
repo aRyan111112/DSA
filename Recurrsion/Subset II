@@ -1,0 +1,28 @@
+class Solution {
+    public void ss(int i, int[] nums, HashSet<List<Integer>> set, List<Integer> elements) {
+        if(i>=nums.length) {
+            List<Integer> temp = new ArrayList<>(elements);
+            Collections.sort(new ArrayList<>(elements));
+            set.add(temp);
+            return;
+        }
+
+        elements.add(nums[i]);
+        ss(i+1, nums, set, elements);
+
+        elements.remove(elements.size()-1);
+        ss(i+1, nums, set, elements);
+    }
+
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        HashSet<List<Integer>> set = new HashSet<>();
+        List<Integer> elements = new ArrayList<>();
+
+        ss(0, nums, set, elements);
+
+        List<List<Integer>> ansList = new ArrayList<>(set);
+        return ansList;
+        
+    }
+}
