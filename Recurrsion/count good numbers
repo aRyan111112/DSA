@@ -1,0 +1,26 @@
+//* using recurrsion *//
+//total even numbers are 5 i.e 0,2,4,6,8
+//total prime numbers are 4 i.e 2,3,5,7
+
+//there will be (n+1)/2 places that will hold even numbers and n/2 places that will hold prime numbers, in "n" length of digit string
+
+class Solution {
+
+    public long pow(long a, long b, int M) {
+        if(b==0) return 1;
+
+        long half = pow(a, b/2, M);
+        long result =(half * half) % M;
+
+        if(b%2 == 1) result = (result * a) % M;
+
+        return result;
+    }
+    public int countGoodNumbers(long n) {
+        
+        int M = 1_000_000_007;
+        long part1 = pow(5, (n + 1) / 2, M);
+        long part2 = pow(4, n / 2, M);
+        return (int)((part1 * part2) % M);
+    }
+}
