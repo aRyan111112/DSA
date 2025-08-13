@@ -30,23 +30,33 @@ class Solution {
     }
 }
 --------------------------------------------------------------------------------------------------------------------
-//* Without using extra variable (By modifying target only)
+//* Without using extra variable (By modifying target only) 
+
+Intution - 
+if we subtract target from the elements than at some point target will either become zero 
+(i.e till here elements sum is equal to target) or a less than zer0 (i.e elements sum to give more than target).
+
 
 class Solution {
 
 
     public void ss(int i, int[] candidates, int target, List<List<Integer>> ansList, List<Integer> elements) {
+        // if the target becomes zero then elements add up to give target
         if(target == 0) {
             ansList.add(new ArrayList<>(elements));
             return;
         }
+
+        // if target<0, that means elements adds upto give more than target, or if array get over
         if(target < 0 || i >= candidates.length) {
             return;
         }
 
         elements.add(candidates[i]);
+        // if target is greater than zero than, call for same index value
         ss(i, candidates, target-candidates[i], ansList, elements);
 
+        // if the any base case satisfies backtrak and call for next array element
         elements.remove(elements.size()-1);
         ss(i+1, candidates, target, ansList, elements);
 
