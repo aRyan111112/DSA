@@ -1,5 +1,12 @@
 //* My approach *// using extra variable "sum"
 
+-take variable "sum".
+-and add candidate[i] to sum, until sum==target or sum>target.
+-if summ==target, then then add elements to ansList and return.
+-if sum>target, then just return or if i>candidates,length,
+-then backtrack, remove the last item from elements, then call the same function for next index.
+
+
 class Solution {
 
     public void ss(int i, int[] candidates, int target, List<List<Integer>> ansList, List<Integer> elements, int sum) {
@@ -35,6 +42,8 @@ class Solution {
 Intution - 
 if we subtract target from the elements than at some point target will either become zero 
 (i.e till here elements sum is equal to target) or a less than zer0 (i.e elements sum to give more than target).
+
+Steps are same as above method
 
 
 class Solution {
