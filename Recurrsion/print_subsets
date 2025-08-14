@@ -1,5 +1,5 @@
-
-
+To store elements we make a new "List",
+-for every element in original array we have two choices to take it or not take it.            very important
 
 package Reccursion;
 
@@ -15,10 +15,16 @@ public class subset {
             System.out.println();
             return;
         }
+
+        // adding element to list
         list.add(arr[i]);
+        // call function for next element but with updated list
         ss(i+1, arr, list);
 
+        //once the base case is satisfied
+        //backtrack, bring the list to it's previous form
         list.remove(list.size() - 1);
+        //call function for next element but with updated list
         ss(i+1, arr, list);
     }
 
