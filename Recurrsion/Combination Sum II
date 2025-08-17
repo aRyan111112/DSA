@@ -50,3 +50,36 @@ class Solution {
         return new ArrayList<>(st);
     }
 }
+----------------------------------------------------------------------------------------------------------
+//* Optimal Approach *//
+
+class Solution {
+
+
+    public void ss(int idx, int[] candidates,int target, List<Integer> elements, List<List<Integer>> ansList) {
+        if(target==0) {
+            ansList.add(new ArrayList<>(elements));
+            return;
+        }
+        for(int i=idx; i<candidates.length; i++) {
+            if(i > idx && candidates[i] == candidates[i-1]) continue;
+
+            if(candidates[i] > target) break;
+
+            elements.add(candidates[i]);
+
+            ss(i+1, candidates, target-candidates[i], elements, ansList);
+            elements.remove(elements.size()-1);
+        }
+        
+
+    }
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> ansList = new ArrayList<>();
+        List<Integer> elements = new ArrayList<>();
+
+        ss(0, candidates, target, elements, ansList);
+        return ansList;
+    }
+}
