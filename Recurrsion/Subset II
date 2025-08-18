@@ -26,3 +26,33 @@ class Solution {
         
     }
 }
+------------------------------------------------------------------------------------------------
+// Optimal Aproach //
+class Solution {
+
+    public void ss(int idx, int[] nums, List<List<Integer>> ansList, List<Integer> elements) {
+        if(idx>nums.length) {
+            ansList.add(new ArrayList<>(elements));
+            return;
+        }
+
+        for(int i=idx; i<nums.length; i++) {
+            if(i > idx && nums[i] == nums[i-1]) continue;
+
+            elements.add(nums[i]);
+            ss(i+1, nums, ansList, elements);
+
+            elements.remove(elements.size()-1);
+        }
+    }
+
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        
+        Arrays.sort(nums);
+        List<List<Integer>> ansList = new ArrayList<>();
+        List<Integer> elements = new ArrayList<>();
+
+        ss(0, nums, ansList, elements);
+        return ansList;
+    }
+}
