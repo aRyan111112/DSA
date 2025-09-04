@@ -1,0 +1,31 @@
+Brute force : using nested loops :
+main thing is:
+--> if nums[j] is 1, then increment the count
+--> if nums[j] is 0, then check if it can be converted to one, if yes increment the count 
+or else just break.
+
+Code:
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int maxCount =0;
+        for(int i=0; i<nums.length; i++) {
+            int count = 0;
+            int l=k;
+            for(int j=i; j<nums.length; j++) {
+                if(nums[j] == 0) {
+                    if(l>0) {
+                        count++;
+                        maxCount = Math.max(maxCount, count);
+                        l--;
+                    } else {
+                        break;
+                    }
+                } else {
+                    count++;
+                    maxCount = Math.max(maxCount, count);
+                }
+            }
+        }
+        return maxCount;
+    }
+}
